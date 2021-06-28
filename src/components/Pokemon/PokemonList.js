@@ -3,7 +3,7 @@
 // The API is subject to 100 requests per IP address per minute, so please make sure you can cache as much as you can as possible.
 
 import React, { useState, useEffect } from 'react'
-import { fetchPokemons } from '../../services/list'
+import { fetchPokemons } from '../../utils/list'
 import PokemonCard from './PokemonCard'
 
 const PokemonList = ({ displayPokemonDetails, setPokemonDetails }) => {

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { fetchPokemonData } from '../../services/list'
+import { fetchPokemonData } from '../../utils/list'
 
 const PokemonCard = ({ name, url, displayPokemonDetails, setPokemonDetails }) => {
   const [pokemonData, setPokemonData] = useState([])
