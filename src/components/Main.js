@@ -64,6 +64,7 @@ const Main = () => {
           data={list.results}
           displayPokemonDetails={displayPokemonDetails}
           setPokemonDetails={setPokemonDetails}
+          bag={localStorage.getItem(STORAGE_KEY)}
         />
       )}
     </div>

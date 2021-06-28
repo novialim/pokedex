@@ -5,11 +5,9 @@
 import React, { useState, useEffect } from 'react'
 import PokemonCard from './PokemonCard'
 
-const PokemonList = ({ displayPokemonDetails, setPokemonDetails, data }) => {
+const PokemonList = ({ displayPokemonDetails, setPokemonDetails, data, bag }) => {
   const [searchValue, setSearchValue] = useState('')
   const [filteredList, setFilteredList] = useState([])
-
-  console.log(data)
 
   useEffect(() => {
     const filterPokemonList = (searchValue) => {
@@ -31,11 +29,16 @@ const PokemonList = ({ displayPokemonDetails, setPokemonDetails, data }) => {
     setSearchValue(searchVal)
   }
 
+  const filterList = () => {
+    let filteredByBag = data.filter((pokemon) => pokemon.url.includes(bag))
+    console.log(filteredByBag)
+    // setFilteredList(filteredByBag)
+  }
   return (
     <div>
       <div style={{ textAlign: 'center', marginBottom: 10 }}>
-        <button>All</button>
-        <button>Bag</button>
+        <button onClick={() => updateSearchValue('')}>All</button>
+        <button onClick={() => filterList()}>Bag</button>
       </div>
       <div style={{ textAlign: 'center', marginBottom: 10 }}>
         <input
