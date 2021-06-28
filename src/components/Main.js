@@ -1,10 +1,22 @@
-import React, { useState } from 'react'
-import PokemonGallery from 'components/Pokemon/PokemonGallery'
+import React, { useState, useEffect } from 'react'
 import PokemonDetails from 'components/Pokemon/PokemonDetails'
+import { fetchPokemons } from '../utils/list'
+import PokemonList from 'components/Pokemon/PokemonList'
 
 const Main = () => {
   const [showPokemonDetails, setShowPokemonDetails] = useState(false)
   const [pokemonData, setPokemonData] = useState(false)
+  const [list, setList] = useState([])
+
+  useEffect(() => {
+    let mounted = true
+    fetchPokemons().then((pokemons) => {
+      if (mounted) {
+        setList(pokemons)
+      }
+    })
+    return () => (mounted = false)
+  }, [])
 
   const displayPokemonDetails = () => {
     setShowPokemonDetails(true)
@@ -23,7 +35,11 @@ const Main = () => {
       {showPokemonDetails ? (
         <PokemonDetails data={pokemonData} undisplayPokemonDetails={undisplayPokemonDetails} />
       ) : (
-        <PokemonGallery displayPokemonDetails={displayPokemonDetails} setPokemonDetails={setPokemonDetails} />
+        <PokemonList
+          data={list.results}
+          displayPokemonDetails={displayPokemonDetails}
+          setPokemonDetails={setPokemonDetails}
+        />
       )}
     </div>
   )
