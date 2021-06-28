@@ -7,6 +7,8 @@ const Main = () => {
   const [showPokemonDetails, setShowPokemonDetails] = useState(false)
   const [pokemonData, setPokemonData] = useState(false)
   const [list, setList] = useState([])
+  const [bag, setBag] = useState(new Set())
+  const STORAGE_KEY = 'savedPokemon'
 
   useEffect(() => {
     let mounted = true
@@ -15,6 +17,13 @@ const Main = () => {
         setList(pokemons)
       }
     })
+
+    let storedPokemon = localStorage.getItem(STORAGE_KEY)
+    const storedSet = new Set(storedPokemon)
+    if (storedSet) {
+      setBag(storedSet)
+    }
+
     return () => (mounted = false)
   }, [])
 
@@ -30,10 +39,26 @@ const Main = () => {
     setPokemonData(value)
   }
 
+  const checkBag = (id, inBag) => {
+    let newBag = new Set(bag)
+    if (inBag) {
+      newBag.add(id)
+    } else {
+      newBag.delete(id)
+    }
+    setBag(newBag)
+    localStorage.setItem(STORAGE_KEY, JSON.stringify([...newBag]))
+  }
+
   return (
     <div style={{ padding: 50 }}>
       {showPokemonDetails ? (
-        <PokemonDetails data={pokemonData} undisplayPokemonDetails={undisplayPokemonDetails} />
+        <PokemonDetails
+          data={pokemonData}
+          undisplayPokemonDetails={undisplayPokemonDetails}
+          checkBag={checkBag}
+          saved={bag.has(pokemonData.id)}
+        />
       ) : (
         <PokemonList
           data={list.results}

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { fetchLocation } from '../../utils/list'
 import GoogleMapReact from 'google-map-react'
 
-const PokemonDetails = ({ data, undisplayPokemonDetails }) => {
+const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
   const [locations, setLocations] = useState([])
   const imgSrc = data?.sprites.other['official-artwork'].front_default
 
@@ -43,6 +43,11 @@ const PokemonDetails = ({ data, undisplayPokemonDetails }) => {
     })
   }
 
+  const handleBagChange = (e) => {
+    const isChecked = e.target.checked
+    checkBag(data.id, isChecked)
+  }
+
   useEffect(() => {
     setLocations(fetchLocation(data.id))
   }, [data.id])
@@ -62,7 +67,7 @@ const PokemonDetails = ({ data, undisplayPokemonDetails }) => {
             <p>Height: {data?.height}</p>
           </div>
           <div>
-            <p>In Bag: </p>
+            <span>In Bag: </span> <input type="checkbox" checked={saved} onChange={handleBagChange} />
           </div>
           <div>{displayTypes()}</div>
           <div>
