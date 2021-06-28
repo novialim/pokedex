@@ -53,7 +53,7 @@ const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
   }, [data.id])
 
   return (
-    <div>
+    <div data-testid="Pokemon-detail-root">
       <div style={{ cursor: 'pointer', marginBottom: 50 }}>
         <u onClick={displayPokemonsPage}>return to pokemons main page</u>
       </div>
@@ -65,6 +65,9 @@ const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
           </div>
           <div>
             <p>Height: {data?.height}</p>
+          </div>
+          <div>
+            <p>Weight: {data?.weight}</p>
           </div>
           <div>
             <span>In Bag: </span> <input type="checkbox" checked={saved} onChange={handleBagChange} />
