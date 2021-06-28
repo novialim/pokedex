@@ -3,35 +3,62 @@
 // The API is subject to 100 requests per IP address per minute, so please make sure you can cache as much as you can as possible.
 
 import React, { useState, useEffect } from 'react'
-import { fetchPokemons } from '../../utils/list'
 import PokemonCard from './PokemonCard'
 
-const PokemonList = ({ displayPokemonDetails, setPokemonDetails }) => {
-  const [list, setList] = useState([])
+const PokemonList = ({ displayPokemonDetails, setPokemonDetails, data }) => {
+  const [searchValue, setSearchValue] = useState('')
+  const [filteredList, setFilteredList] = useState([])
+
+  console.log(data)
 
   useEffect(() => {
-    let mounted = true
-    fetchPokemons().then((pokemons) => {
-      if (mounted) {
-        setList(pokemons)
+    const filterPokemonList = (searchValue) => {
+      let filteredList = []
+      if (!searchValue) {
+        setFilteredList(data)
+      } else {
+        filteredList = data.filter((pokemon) => {
+          return pokemon.name.toLowerCase().startsWith(searchValue)
+        })
+
+        setFilteredList(filteredList)
       }
-    })
-    return () => (mounted = false)
-  }, [])
+    }
+    filterPokemonList(searchValue)
+  }, [data, searchValue])
+
+  const updateSearchValue = (searchVal) => {
+    setSearchValue(searchVal)
+  }
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-      {list?.results?.map(({ name, url }) => {
-        return (
-          <PokemonCard
-            key={name}
-            name={name}
-            url={url}
-            displayPokemonDetails={displayPokemonDetails}
-            setPokemonDetails={setPokemonDetails}
-          />
-        )
-      })}
+    <div>
+      <div style={{ textAlign: 'center', marginBottom: 10 }}>
+        <button>All</button>
+        <button>Bag</button>
+      </div>
+      <div style={{ textAlign: 'center', marginBottom: 10 }}>
+        <input
+          placeholder="search"
+          type="search"
+          onChange={(e) => {
+            updateSearchValue(e.target.value)
+          }}
+        />
+      </div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+        {filteredList?.map(({ name, url }) => {
+          return (
+            <PokemonCard
+              key={name}
+              name={name}
+              url={url}
+              displayPokemonDetails={displayPokemonDetails}
+              setPokemonDetails={setPokemonDetails}
+            />
+          )
+        })}
+      </div>
     </div>
   )
 }

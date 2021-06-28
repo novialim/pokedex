@@ -55,7 +55,9 @@ const PokemonDetails = ({ data, undisplayPokemonDetails }) => {
       <div style={{ display: 'flex' }}>
         <div style={{ width: '50%' }}>
           <img style={{ width: 150 }} src={imgSrc} alt={data?.name} />
-          <div>{data?.name}</div>
+          <div>
+            <b>{data?.name}</b>
+          </div>
           <div>
             <p>Height: {data?.height}</p>
           </div>
@@ -68,6 +70,9 @@ const PokemonDetails = ({ data, undisplayPokemonDetails }) => {
             Hoenn Shieldon Wynaut Charizard. Growl Venonat Scolipede Espeon Charizard Barboach Hidden Machine. Duis aute
             irure dolor in reprehenderit in voluptate they're comfy and easy to wear Onix what kind of Pokemon are you
             Fog Badge Ampharos Noctowl. Pewter City Marill Slakoth Bronzong Rattata Treecko Cottonee.
+          </div>
+          <div style={{ marginTop: 50 }}>
+            <b>Abilities</b>
           </div>
           <div>{displaySkills()}</div>
         </div>

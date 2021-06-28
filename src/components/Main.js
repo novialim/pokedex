@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import PokemonList from 'components/Pokemon/PokemonList'
+import PokemonGallery from 'components/Pokemon/PokemonGallery'
 import PokemonDetails from 'components/Pokemon/PokemonDetails'
 
 const Main = () => {
@@ -23,7 +23,7 @@ const Main = () => {
       {showPokemonDetails ? (
         <PokemonDetails data={pokemonData} undisplayPokemonDetails={undisplayPokemonDetails} />
       ) : (
-        <PokemonList displayPokemonDetails={displayPokemonDetails} setPokemonDetails={setPokemonDetails} />
+        <PokemonGallery displayPokemonDetails={displayPokemonDetails} setPokemonDetails={setPokemonDetails} />
       )}
     </div>
   )
