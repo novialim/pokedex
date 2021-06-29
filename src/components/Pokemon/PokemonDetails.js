@@ -6,20 +6,14 @@ const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
   const [locations, setLocations] = useState([])
   const imgSrc = data?.sprites.other['official-artwork'].front_default
 
-  const sampleLocations = [
-    '32.96045,-117.15778',
-    '32.734196,-117.139709',
-    '32.833744,-117.067149',
-    '32.819219,-117.029244',
-    '32.907707,-116.797917',
-  ]
+  const sampleLocations = ['32.96045,-117.15778', '32.97045,-117.16778', '32.96085,-117.17778', '32.96045,-117.18778']
 
   const defaultProps = {
     center: {
       lat: 32.96045,
       lng: -117.15778,
     },
-    zoom: 11,
+    zoom: 9,
   }
 
   const displayPokemonsPage = () => {
@@ -93,7 +87,7 @@ const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
             return <Marker key={i} lat={lat} lng={lng} imgSrc={imgSrc} />
           })} */}
             {sampleLocations?.map(({ lat, lng }, i) => {
-              return <Marker key={i} lat={lat} lng={lng} imgSrc={imgSrc} />
+              return <Marker key={i} lat={lat} lng={lng} imgSrc={data?.name} text={data?.name} />
             })}
           </GoogleMapReact>
         </div>
@@ -102,8 +96,12 @@ const PokemonDetails = ({ data, undisplayPokemonDetails, saved, checkBag }) => {
   )
 }
 
-const Marker = (imgSrc) => {
-  return <img src={imgSrc} alt="" />
+const Marker = (name) => {
+  return (
+    <p lat={32.96045} lng={-117.15778} text={name} style={{ color: 'red' }}>
+      &#9733;
+    </p>
+  )
 }
 
 export default PokemonDetails
